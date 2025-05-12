@@ -1,9 +1,11 @@
 # problem 3: what is the largest prime factor of the number 600851475143
 # too slow and needs to be optimized
+# O notation calculation --> n*m
 #!/bin/bash
 
 n=600851475143
-for (( x=2 ; x<=$n ; x++ ))
+m=$(echo "sqrt($n)+1" | bc)
+for (( x=2 ; x<=n ; x++ ))
 do
 	if (( $n % $x == 0 ))
 	then
