@@ -8,10 +8,10 @@ for (( x=2; x<=m; x++ ))
 do
 	if (( $n%$x == 0 ))
 	then
-		for (( y=1; y<=20; y++))  
+		for (( y=1; y<=20; y++)) #I BROKE IT AGAIN 
 		do
-			z=$(shuf -i 1-$x -n 1)
-			if (( $(echo "(($z^$x)-$z)%$x" | bc)!=0 ))
+			a=$RANDOM
+			if (( $(echo "($a^$x)%$x" | bc) != $a  ))
 			then
 				break
 			fi
