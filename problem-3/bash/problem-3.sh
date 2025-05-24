@@ -1,25 +1,32 @@
-# problem 3: what is the largest prime factor of the number 600851475143
-# too slow and needs to be optimized
-# O notation calculation --> n*m
+# Step 1: Factorization works but is too slow for the test case
+# Edit 1: To speed up, used $(( )) instead of bc - which works!
+# Edit 2: The more times you run bc, the slower the program is
+# Step 2: Fermat's little theorem for primarlity
+# Edit 1: $(( )) can't handle as large of numbers as bc
+# Edit 2: 
+
 #!/bin/bash
 
-n=600851475143
-m=$(echo "sqrt($n)+1" | bc)
-for (( x=2 ; x<=n ; x++ ))
+n=600851475143 #test case
+t=$(echo "scale=0; sqrt($n)" | bc)
+for (( p=2 ; p<=t ; p++ ))
 do
-	if (( $n % $x == 0 ))
+	if (( $(($n % $p))==0 )) #tests if we have a factor of n
 	then
-		for (( y=2 ; y<=$x ; y++ ))
+		state=1
+		for (( x=1 ; x<=1 ; x++)) #use 10 random numbers and do fermat's primarlity test
 		do
-			if (( $x == $y ))
+			a=$(shuf -i 2-$(($p-1)) -n 1)
+			if (( $(echo "(($a^($p-1))%$p) != 1" | bc) ))
 			then
-				echo "$x"
-				break
-			fi
-			if (( $x % $y == 0 && $y != $x ))
-			then
+				state=0
 				break
 			fi
 		done
+		if (( $state == 1 ))
+		then
+			echo "$p"
+		fi
 	fi
-done	
+done
+
