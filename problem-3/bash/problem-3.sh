@@ -7,14 +7,14 @@
 
 #!/bin/bash
 
-n=600851475143 #test case
+n=13195 #test case
 t=$(echo "scale=0; sqrt($n)" | bc)
-for (( p=2 ; p<=t ; p++ ))
+for (( p=3 ; p<=t ; p+=1 ))
 do
 	if (( $(($n % $p))==0 )) #tests if we have a factor of n
 	then
 		state=1
-		for (( x=1 ; x<=1 ; x++)) #use 10 random numbers and do fermat's primarlity test
+		for (( x=1 ; x<=10 ; x++)) #use 10 random numbers and do fermat's primarlity test
 		do
 			a=$(shuf -i 2-$(($p-1)) -n 1)
 			if (( $(echo "(($a^($p-1))%$p) != 1" | bc) ))
